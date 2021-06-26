@@ -10,6 +10,7 @@ class App extends Component {
     super(props)
 
   this.state = {
+    ipfsHash: '',
     storageValue: 0,
     web3: null,
     accounts: null,
@@ -50,7 +51,7 @@ class App extends Component {
 
   // runExample = async () => {
   //   const { accounts, contract } = this.state;
-  // 
+  //
   //   // Stores a given value, 5 by default.
   //   await contract.methods.set('5').send({ from: accounts[0] });
   //
@@ -75,6 +76,14 @@ class App extends Component {
   onSubmit(event) {
     event.preventDefault()
     console.log('on submit....')
+    ipfs.files.add(this.state.buffer, (error, result) => {
+      if (error) {
+        console.error(error)
+        return
+      }
+      this.setState({ ipfsHash: result[0].hash })
+      console.log('ipfsHash', this.state.ipfsHash)
+    })
   }
 
 
