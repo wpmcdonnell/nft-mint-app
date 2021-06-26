@@ -55,9 +55,18 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
+      <nav className='navbar pure-menu pure-menu-horizontal'>
+        IPFS File Upload DApp
+      </nav>
+        <h1>Image</h1>
+        <p>Image stored on IPFS and Ethereum Blockchain</p>
         <h2>Smart Contract Example</h2>
+        <img src='' alt=''/>
+        <h2>Upload Image</h2>
+        <form >
+          <input type='file'  />
+          <input type='submit' />
+        </form>
         <p>
           If your contracts compiled and migrated successfully, below will show
           a stored value of 5 (by default).
