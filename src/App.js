@@ -6,7 +6,19 @@ import ipfs from './ipfs'
 import "./App.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  constructor(props) {
+    super(props)
+
+  this.state = {
+    storageValue: 0,
+    web3: null,
+    accounts: null,
+    contract: null
+  };
+  this.captureFile = this.captureFile.bind(this);
+  this.onSubmit = this.onSubmit.bind(this);
+
+    }
 
   componentDidMount = async () => {
     try {
@@ -49,6 +61,16 @@ class App extends Component {
     this.setState({ storageValue: response });
   };
 
+  captureFile() {
+    console.log('capture file...')
+  }
+
+  onSubmit(event) {
+    event.preventDefault()
+    console.log('on submit....')
+  }
+
+
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -63,8 +85,8 @@ class App extends Component {
         <h2>Smart Contract Example</h2>
         <img src='' alt=''/>
         <h2>Upload Image</h2>
-        <form >
-          <input type='file'  />
+        <form onSubmit={this.onSubmit}>
+          <input type='file' onChange={this.captureFile} />
           <input type='submit' />
         </form>
         <p>
