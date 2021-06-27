@@ -64,6 +64,7 @@ class App extends Component {
 
     // Update state with the result.
     this.setState({ storageValue: response });
+    console.log(response)
   };
 
   captureFile(event) {
@@ -77,25 +78,22 @@ class App extends Component {
     }
   }
 
-  onSubmit(event) {
+onSubmit(event) {
     event.preventDefault()
     console.log(this.state.contract)
-    ipfs.files.add(this.state.buffer, (error, result) => {
+    ipfs.files.add(this.state.buffer, async (error, result) => {
       if (error) {
         console.error(error)
         return
       }
-      this.state.contract.methods.set(result[0].hash).send({ from: this.state.accounts[0] })
-        .then((r) => {
-        // Get value from contract
-          return this.setState({ ipfsHash: result[0].hash })
-        })
-        .then(() => {
-          console.log(this.state.ipfsHash)
-          const response = this.state.contract.methods.get().call();
-          this.setState({ storageValue: response.toString() });
-        })
-  })
+      await this.state.contract.methods.set(result[0].hash).send({ from: this.state.accounts[0] });
+      const response = await this.state.contract.methods.get().call();
+
+
+      this.setState({ ipfsHash: result[0].hash, storageValue: response })
+      console.log("this is ifps has state", this.state.ipfsHash)
+      console.log("this is response", response)
+    })
 }
 
 
