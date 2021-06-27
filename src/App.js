@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
+import MyNFT from "./contracts/MyNFT.json";
 // import getWeb3 from "./getWeb3";
 import Web3 from 'web3';
 import ipfs from './ipfs'
@@ -19,6 +19,7 @@ class App extends Component {
   };
   this.captureFile = this.captureFile.bind(this);
   this.onSubmit = this.onSubmit.bind(this);
+  this.mintNft = this.mintNft.bind(this);
 
     }
 
@@ -30,22 +31,23 @@ class App extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
+      console.log(accounts)
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = MyNFT.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+        MyNFT.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
-      const response = await this.state.contract.methods.get().call();
-      console.log(response)
+      // const response = await this.state.contract.methods.get().call();
+      // console.log(response)
 
 
-      this.setState({ ipfsHash: response, storageValue: response })
+      // this.setState({ ipfsHash: response})
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -97,6 +99,12 @@ onSubmit(event) {
     })
 }
 
+mintNft = async () => {
+  await this.state.contract.methods.pressMintButton(22);
+  console.log(this.state.accounts)
+  console.log(this.state.contract.methods)
+}
+
 
   render() {
     console.log(this.state.contract)
@@ -111,6 +119,7 @@ onSubmit(event) {
         <h1>Image</h1>
         <p>Image stored on IPFS and Ethereum Blockchain</p>
         <h2>Smart Contract Example</h2>
+        <button  onClick={this.mintNft}>Mint NFT Test</button>
         {this.state.ipfsHash === '' ? '' : <img src={`https://ipfs.io/ipfs/${this.state.ipfsHash}`} alt=''/> }
         <h2>Upload Image</h2>
         <form onSubmit={this.onSubmit}>

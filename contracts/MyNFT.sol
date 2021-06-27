@@ -7,8 +7,8 @@ contract MyNFT is ERC721 {
     constructor() ERC721("My WPM NFT", "WPM-NFT") public {
     }
 
-    function pressMintButton(uint256 _tokenId) public {
-    _safeMint(msg.sender, _tokenId);
+    function pressMintButton(address _to, uint256 _tokenId) public {
+    _safeMint(_to, _tokenId);
 }
 }
 
