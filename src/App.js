@@ -37,12 +37,12 @@ class App extends Component {
         SimpleStorageContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
-    // await console.log(instance.methods.get())
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
       const response = await this.state.contract.methods.get().call();
+      console.log(response)
 
 
       this.setState({ ipfsHash: response, storageValue: response })
@@ -94,8 +94,6 @@ onSubmit(event) {
 
 
       this.setState({ ipfsHash: result[0].hash, storageValue: response })
-      console.log("this is ifps has state", this.state.ipfsHash)
-      console.log("this is response", response)
     })
 }
 
