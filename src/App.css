@@ -25,3 +25,7 @@ img {
   width: 15em;
   height: 15em;
 }
+
+nav {
+  background-color: purple;
+}
