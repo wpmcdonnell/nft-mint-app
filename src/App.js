@@ -42,7 +42,10 @@ class App extends Component {
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
+      const response = await this.state.contract.methods.get().call();
 
+
+      this.setState({ ipfsHash: response, storageValue: response })
 
     } catch (error) {
       // Catch any errors for any of the above operations.
@@ -53,19 +56,19 @@ class App extends Component {
     }
   };
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    await contract.methods.set('5').send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: response });
-    console.log(response)
-  };
+  // runExample = async () => {
+  //   const { accounts, contract } = this.state;
+  //
+  //   // Stores a given value, 5 by default.
+  //   await contract.methods.set('5').send({ from: accounts[0] });
+  //
+  //   // Get the value from the contract to prove it worked.
+  //   const response = await contract.methods.get().call();
+  //
+  //   // Update state with the result.
+  //   this.setState({ storageValue: response });
+  //   console.log(response)
+  // };
 
   captureFile(event) {
     event.preventDefault()
