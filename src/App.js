@@ -89,7 +89,7 @@ onSubmit(event) {
         console.error(error)
         return
       }
-      await this.state.contract.methods.set(result[0].hash).send({ from: this.state.accounts[0] });
+      await this.state.contract.methods._safemint(this.state.accounts[0], ).send({ from: this.state.accounts[0] });
       const response = await this.state.contract.methods.get().call();
 
 

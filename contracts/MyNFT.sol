@@ -6,6 +6,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract MyNFT is ERC721 {
     constructor() ERC721("My WPM NFT", "WPM-NFT") public {
     }
+
+    function pressMintB(address _to, uint256 _tokenId) public {
+    _safeMint(_to, _tokenId);
+}
 }
 
 /* contract SimpleStorage {
