@@ -31,7 +31,6 @@ class App extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-      console.log(accounts)
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = MyNFT.networks[networkId];
@@ -39,6 +38,8 @@ class App extends Component {
         MyNFT.abi,
         deployedNetwork && deployedNetwork.address,
       );
+      // console.log(deployedNetwork)
+
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
@@ -100,9 +101,12 @@ onSubmit(event) {
 }
 
 mintNft = async () => {
-  await this.state.contract.methods.pressMintButton(22);
-  console.log(this.state.accounts)
-  console.log(this.state.contract.methods)
+  // Successfully calls mint function -- need to change Token ID value to a counter in contract
+  // const nft = await this.state.contract.methods.pressMintButton(13).send({ from: this.state.accounts[0] })
+    // this gets the call of the balance of your NFT tokens, must instantiate contract first
+    const monkey = await this.state.contract.methods.ownerOf(12).call();
+    console.log(monkey)
+
 }
 
 
