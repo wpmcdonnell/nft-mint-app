@@ -15,12 +15,13 @@ class App extends Component {
     storageValue: 0,
     web3: null,
     accounts: null,
-    contract: null
+    contract: null,
+    jsonData: ''
   };
   this.captureFile = this.captureFile.bind(this);
   this.onSubmit = this.onSubmit.bind(this);
   this.mintNft = this.mintNft.bind(this);
-
+  this.onJsonSubmit = this.onJsonSubmit.bind(this);
     }
 
   componentDidMount = async () => {
@@ -90,18 +91,29 @@ onSubmit(event) {
         console.error(error)
         return
       }
-      console.log(result)
+      console.log('result of ipfs add', result)
 
 
       this.setState({ ipfsHash: result[0].hash, storageValue: `https://ipfs.io/ipfs/${result[0].hash}` })
     })
 }
 
+  onJsonSubmit(event) {
+    event.preventDefault()
+    let jsonData =  {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      image: `https://ipfs.io/ipfs/${this.state.ipfsHash}`
+    }
+    this.setState({ jsonData: JSON.stringify(jsonData) })
+
+  }
+
 mintNft = async () => {
   // Successfully calls mint function -- need to change Token ID value to a counter in contract
-   await this.state.contract.methods.pressMintButton(`https://ipfs.io/ipfs/${this.state.ipfsHash}`).send({ from: this.state.accounts[0] })
+   // await this.state.contract.methods.pressMintButton(this.state.jsonData).send({ from: this.state.accounts[0] })
     // this gets the call of the balance of your NFT tokens, must instantiate contract first
-    const monkey = await this.state.contract.methods.tokenURI(4).call();
+    const monkey = await this.state.contract.methods.tokenURI(11).call();
     console.log("tokenuri", monkey)
 
 }
@@ -125,6 +137,12 @@ mintNft = async () => {
         <h2>Upload Image</h2>
         <form onSubmit={this.onSubmit}>
           <input type='file' onChange={this.captureFile} />
+          <input type='submit' />
+        </form>
+        <form onSubmit={this.onJsonSubmit}>
+          <input name='title' type='text' />
+          <br></br>
+          <input name='description' type='text' />
           <input type='submit' />
         </form>
         <p>
