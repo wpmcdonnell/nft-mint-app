@@ -28,7 +28,6 @@ class App extends Component {
       // Get network provider and web3 instance.
       // const web3 = await getWeb3();
       const web3 = new Web3(window.ethereum)
-
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
       // Get the contract instance.
@@ -38,7 +37,6 @@ class App extends Component {
         MyNFT.abi,
         deployedNetwork && deployedNetwork.address,
       );
-      // console.log(deployedNetwork)
 
 
       // Set web3, accounts, and contract to the state, and then proceed with an
@@ -92,20 +90,19 @@ onSubmit(event) {
         console.error(error)
         return
       }
-      await this.state.contract.methods._safemint(this.state.accounts[0], ).send({ from: this.state.accounts[0] });
-      const response = await this.state.contract.methods.get().call();
 
 
-      this.setState({ ipfsHash: result[0].hash, storageValue: response })
+      this.setState({ ipfsHash: result[0].hash, storageValue: result[0].hash })
     })
 }
 
 mintNft = async () => {
   // Successfully calls mint function -- need to change Token ID value to a counter in contract
-  // const nft = await this.state.contract.methods.pressMintButton(13).send({ from: this.state.accounts[0] })
+  const nft = await this.state.contract.methods.pressMintButton(`https://ipfs.io/ipfs/${this.state.ipfsHash}`
+  ).send({ from: this.state.accounts[0] })
     // this gets the call of the balance of your NFT tokens, must instantiate contract first
-    const monkey = await this.state.contract.methods.ownerOf(12).call();
-    console.log(monkey)
+    // const monkey = await this.state.contract.methods.ownerOf(11).call();
+    console.log(nft.result)
 
 }
 
