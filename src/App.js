@@ -90,19 +90,19 @@ onSubmit(event) {
         console.error(error)
         return
       }
+      console.log(result)
 
 
-      this.setState({ ipfsHash: result[0].hash, storageValue: result[0].hash })
+      this.setState({ ipfsHash: result[0].hash, storageValue: `https://ipfs.io/ipfs/${result[0].hash}` })
     })
 }
 
 mintNft = async () => {
   // Successfully calls mint function -- need to change Token ID value to a counter in contract
-  const nft = await this.state.contract.methods.pressMintButton(`https://ipfs.io/ipfs/${this.state.ipfsHash}`
-  ).send({ from: this.state.accounts[0] })
+   await this.state.contract.methods.pressMintButton(`https://ipfs.io/ipfs/${this.state.ipfsHash}`).send({ from: this.state.accounts[0] })
     // this gets the call of the balance of your NFT tokens, must instantiate contract first
-    // const monkey = await this.state.contract.methods.ownerOf(11).call();
-    console.log(nft.result)
+    const monkey = await this.state.contract.methods.tokenURI(4).call();
+    console.log("tokenuri", monkey)
 
 }
 
