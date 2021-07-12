@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -21,6 +23,12 @@
   color: #09d3ac;
 }
 
+a {
+  color: white;
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
 img {
   width: 15em;
   height: 15em;
@@ -28,4 +36,5 @@ img {
 
 nav {
   background-color: purple;
+  text-align: left;
 }

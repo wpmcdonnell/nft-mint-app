@@ -126,8 +126,8 @@ mintNft = async () => {
     }
     return (
       <div className="App">
-      <nav className='navbar pure-menu pure-menu-horizontal'>
-        IPFS File Upload DApp
+      <nav className='' bg='dark' variant='dark'>
+        <a> Pika Fire NFT Mint </a>
       </nav>
         <h1>Image</h1>
         <p>Image stored on IPFS and Ethereum Blockchain</p>
