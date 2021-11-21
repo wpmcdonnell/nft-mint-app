@@ -111,7 +111,7 @@ onSubmit(event) {
 
 mintNft = async () => {
   // Successfully calls mint function -- need to change Token ID value to a counter in contract
-   // await this.state.contract.methods.pressMintButton(this.state.jsonData).send({ from: this.state.accounts[0] })
+   await this.state.contract.methods.pressMintButton(this.state.jsonData).send({ from: this.state.accounts[0] })
     // this gets the call of the balance of your NFT tokens, must instantiate contract first
     const monkey = await this.state.contract.methods.tokenURI(11).call();
     console.log("tokenuri", monkey)

@@ -10,9 +10,11 @@ contract MyNFT is ERC721URIStorage {
   Counters.Counter private _tokenIds;
 
     constructor() ERC721("WPM NFT", "WPM-NFT") public {
+      _cap = 4;
 }
 
     function pressMintButton(string memory tokenURI) public returns(uint256) {
+      require(_cap >= _tokenIds.current(), "Minting cap reached");
       _tokenIds.increment();
       uint256 currentTokenId = _tokenIds.current();
       _safeMint(msg.sender, currentTokenId);
@@ -20,6 +22,8 @@ contract MyNFT is ERC721URIStorage {
       return currentTokenId;
     }
   }
+
+  /*  Need safeTransfer to give 10% of price to certain wallet */
 
 /* function setTokenURI(uint256 _tokenId) public {
   require(
