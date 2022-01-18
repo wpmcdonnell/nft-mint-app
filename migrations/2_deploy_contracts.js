@@ -1,5 +1,5 @@
-var MyNFT = artifacts.require("./MyNFT.sol");
+var MMHS1 = artifacts.require("./MMHS1.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(MyNFT);
+  deployer.deploy(MMHS1);
 };
